@@ -9,8 +9,11 @@ export class TasksService {
   lists: List[] = [];
 
   constructor() {
-    console.log('Service initialized');
 
+    const list1 = new List('Get infinite stones');
+    const list2 = new List('heroes to disappear');
+
+    this.lists.push(list1, list2);
   }
 
 }
