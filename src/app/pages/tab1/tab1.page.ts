@@ -38,7 +38,7 @@ export class Tab1Page {
           if (data.title.length === 0) {
             return;
           }
-
+          this.tasksService.createList(data.title);
         }
       }]
     });
