@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TasksService } from '../../services/tasks.service';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -9,12 +10,39 @@ import { Router } from '@angular/router';
 })
 export class Tab1Page {
 
-  constructor(public tasksService: TasksService, private router: Router) {
+  constructor(public tasksService: TasksService, private router: Router,
+    private alertController: AlertController) {
 
 
   }
 
-  addList() {
-    this.router.navigateByUrl('/tabs/tab1/add');
+  async addList() {
+    // this.router.navigateByUrl('/tabs/tab1/add');
+    const alert = await this.alertController.create({
+      header: 'New list',
+      inputs: [{
+        name: 'title',
+        type: 'text',
+        placeholder: 'List name'
+      }],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel');
+        }
+      },
+      {
+        text: 'Add',
+        handler: (data) => {
+          if (data.title.length === 0) {
+            return;
+          }
+
+        }
+      }]
+    });
+
+    await alert.present();
   }
 }
