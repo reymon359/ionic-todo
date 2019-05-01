@@ -25,8 +25,11 @@ export class AddPage implements OnInit {
 
   addItem() {
     if (this.taskName.length === 0) { return; }
-     const newTask = new Task(this.taskName);
-     this.list.tasks.push
+
+    const newTask = new Task(this.taskName);
+    this.list.tasks.push(newTask);
+
+    this.taskName = '';
+    this.tasksService.saveStorage();
   }
 }
- 
