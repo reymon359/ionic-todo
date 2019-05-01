@@ -13,11 +13,9 @@ export class Tab1Page {
   constructor(public tasksService: TasksService, private router: Router,
     private alertController: AlertController) {
 
-
   }
 
   async addList() {
-    // this.router.navigateByUrl('/tabs/tab1/add');
     const alert = await this.alertController.create({
       header: 'New list',
       inputs: [{
@@ -38,7 +36,11 @@ export class Tab1Page {
           if (data.title.length === 0) {
             return;
           }
-          this.tasksService.createList(data.title);
+          const idList = this.tasksService.createList(data.title);
+
+          // Now we redirect to the list
+          this.router.navigateByUrl(`/tabs/tab1/add/${ idList }`);
+
         }
       }]
     });
