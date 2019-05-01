@@ -10,10 +10,8 @@ export class TasksService {
 
   constructor() {
 
-    const list1 = new List('Get infinite stones');
-    const list2 = new List('heroes to disappear');
+    this.loadStorage();
 
-    this.lists.push(list1, list2);
   }
 
   createList(title: string) {
@@ -28,6 +26,8 @@ export class TasksService {
   }
 
   loadStorage() {
-
+    if (localStorage.getItem('data')) {
+      this.lists = JSON.parse(localStorage.getItem('data'));
+    } else { this.lists = []; }
   }
 }
