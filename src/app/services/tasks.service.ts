@@ -19,5 +19,15 @@ export class TasksService {
   createList(title: string) {
     const newList = new List(title);
     this.lists.push(newList);
+    this.saveStorage();
+  }
+
+  saveStorage() {
+    localStorage.setItem('data', JSON.stringify(this.lists));
+
+  }
+
+  loadStorage() {
+
   }
 }
