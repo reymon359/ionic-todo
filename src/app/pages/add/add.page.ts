@@ -42,11 +42,16 @@ export class AddPage implements OnInit {
     if (pending === 0) {
       this.list.dateCompleted = new Date();
       this.list.completed = true;
-    } else{
+    } else {
       this.list.dateCompleted = null;
       this.list.completed = false;
     }
 
+    this.tasksService.saveStorage();
+  }
+
+  delete(i: number) {
+    this.list.tasks.splice(i, 1);
     this.tasksService.saveStorage();
   }
 }
