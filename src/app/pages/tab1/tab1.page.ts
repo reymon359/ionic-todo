@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { TasksService } from '../../services/tasks.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { List } from '../../models/list.model';
 
 @Component({
   selector: 'app-tab1',
@@ -49,8 +48,5 @@ export class Tab1Page {
     await alert.present();
   }
 
-  selectedList(list: List) {
-    this.router.navigateByUrl(`/tabs/tab1/add/${list.id }`);
-    
-  }
+ 
 }
