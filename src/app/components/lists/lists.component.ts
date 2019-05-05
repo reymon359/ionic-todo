@@ -26,4 +26,9 @@ export class ListsComponent implements OnInit {
     }
 
   }
+
+  deleteList(list: List) {
+
+    this.tasksService.deleteList(list);
+  }
 }
