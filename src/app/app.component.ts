@@ -19,6 +19,8 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      if (!this.platform.is('cordova')) document.getElementsByTagName('body')[0].setAttribute('style', 'width: 420px;margin-left: auto!important;margin-right: auto!important;position: relative;');
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
