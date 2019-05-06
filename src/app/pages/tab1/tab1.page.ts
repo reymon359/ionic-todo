@@ -48,5 +48,16 @@ export class Tab1Page {
     await alert.present();
   }
 
- 
+  async openInfo() {
+    const alert = await this.alertController.create({
+      header: 'Information',
+      subHeader: 'This is a simple to do app done with ionic ',
+      message: 'You can slide the lists and items to right and left to edit and remove them',
+   
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
 }
