@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TasksService } from '../../services/tasks.service';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -11,7 +11,7 @@ import { AlertController } from '@ionic/angular';
 export class Tab1Page {
 
   constructor(public tasksService: TasksService, private router: Router,
-    private alertController: AlertController) {
+    private alertController: AlertController,  private platform: Platform) {
 
   }
 
@@ -53,8 +53,16 @@ export class Tab1Page {
       header: 'Information',
       subHeader: 'This is a simple to do app done with ionic ',
       message: 'You can slide the lists and items to right and left to edit and remove them',
-   
-      buttons: ['OK']
+
+      buttons: [{
+        text: 'Ok'
+      },
+      {
+        text: 'Play Store',
+        handler: () => {
+          window.location.href = `https://play.google.com/intl/en_us/badges/`;
+        }
+      }]
     });
 
     await alert.present();
