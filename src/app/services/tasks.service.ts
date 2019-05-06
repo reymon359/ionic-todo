@@ -48,22 +48,26 @@ export class TasksService {
   }
 
   loadStorage() {
-    if (this.platform.is('cordova')) { // mobile
-      this.storage.ready()
-        .then(() => { // When the storage is ready
-          this.storage.get('data') // get the settings
-            .then(data => {
+    const promise = new Promise((resolve, reject) => {
+      if (this.platform.is('cordova')) { // mobile
+        this.storage.ready()
+          .then(() => { // When the storage is ready
+            this.storage.get('data') // get the settings
+              .then(data => {
 
-              if (data) { this.lists = data; }
+                if (data) { this.lists = data; }
+                resolve();
+              });
+          });
+      } else {  // Desktop
+        if (localStorage.getItem('data')) {
+          this.lists = JSON.parse(localStorage.getItem('data'));
+        } else { this.lists = []; }
+        resolve();
+      }
 
-            });
-        });
-    } else {  // Desktop
-      if (localStorage.getItem('data')) {
-        this.lists = JSON.parse(localStorage.getItem('data'));
-      } else { this.lists = []; }
-    }
 
-
+    });
+    return promise;
   }
 }
