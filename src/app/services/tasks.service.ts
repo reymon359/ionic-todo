@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { List } from '../models/list.model';
+import { Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,7 @@ export class TasksService {
 
   lists: List[] = [];
 
-  constructor() {
+  constructor(private platform: Platform, private storage: Storage) {
 
     this.loadStorage();
 
@@ -34,13 +36,34 @@ export class TasksService {
 
 
   saveStorage() {
-    localStorage.setItem('data', JSON.stringify(this.lists));
+    if (this.platform.is('cordova')) { // mobile
+      this.storage.ready().then(() => {
+        this.storage.set('data', this.lists);
+      });
+    } else {  // Desktop
+      localStorage.setItem('data', JSON.stringify(this.lists));
+    }
+
 
   }
 
   loadStorage() {
-    if (localStorage.getItem('data')) {
-      this.lists = JSON.parse(localStorage.getItem('data'));
-    } else { this.lists = []; }
+    if (this.platform.is('cordova')) { // mobile
+      this.storage.ready()
+        .then(() => { // When the storage is ready
+          this.storage.get('data') // get the settings
+            .then(data => {
+
+              if (data) { this.lists = data; }
+
+            });
+        });
+    } else {  // Desktop
+      if (localStorage.getItem('data')) {
+        this.lists = JSON.parse(localStorage.getItem('data'));
+      } else { this.lists = []; }
+    }
+
+
   }
 }
