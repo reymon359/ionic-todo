@@ -60,7 +60,7 @@ export class Tab1Page {
       {
         text: 'Play Store',
         handler: () => {
-          window.location.href = `https://play.google.com/intl/en_us/badges/`;
+          window.location.href = `https://play.google.com/store/apps/details?id=com.ramonmorcillo.todoapp`;
         }
       }]
     });
